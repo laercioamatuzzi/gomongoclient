@@ -65,6 +65,11 @@ func (m *MongoDB) connect() (mongo.Client, error) {
 
 }
 
+func (m *MongoDB) Test() string {
+
+	return "test"
+}
+
 // Ping tests the connection with the mongo Server
 func (m *MongoDB) Ping(connectOnFailure bool) (err error) {
 
@@ -198,11 +203,6 @@ func (m *MongoDB) Upsert(collection string, values bson.M, filter bson.M) error 
 	return nil
 }
 
-type UpsertQuery struct {
-	Query  []bson.M
-	Filter []bson.M
-}
-
 func (m *MongoDB) Update(collection string, filter bson.M, update bson.M) {
 
 	if err := m.Ping(true); err != nil {
@@ -220,7 +220,7 @@ func (m *MongoDB) Update(collection string, filter bson.M, update bson.M) {
 }
 
 // UpsertMany records on the mongo database
-func (m *MongoDB) UpsertMany(collection string, query UpsertQuery) {
+func (m *MongoDB) UpsertMany(collection string, query interface{}, filter interface{}) {
 
 	if err := m.Ping(true); err != nil {
 		return
@@ -230,8 +230,8 @@ func (m *MongoDB) UpsertMany(collection string, query UpsertQuery) {
 	var operations []mongo.WriteModel
 
 	operation := mongo.NewUpdateOneModel()
-	operation.SetFilter(query.Filter)
-	operation.SetUpdate(bson.M{"$set": query.Query})
+	operation.SetFilter(filter)
+	operation.SetUpdate(bson.M{"$set": query})
 	operation.SetUpsert(true)
 
 	operations = append(operations, operation)
