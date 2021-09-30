@@ -1,5 +1,5 @@
-// goezmongo implements and simplify the mongodb-driver usage
-package goezmongo
+// gomongoclient implements and simplify the mongodb-driver usage
+package gomongoclient
 
 import (
 	"context"
