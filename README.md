@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"log"
 
-	gomongoclient "github.com/laercioamatuzzi/go-ez-mongo"
+	"github.com/laercioamatuzzi/gomongoclient"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
