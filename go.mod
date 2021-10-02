@@ -1,4 +1,4 @@
-module gomongoclient
+module github.com/laercioamatuzzi/gomongoclient
 
 go 1.16
 
