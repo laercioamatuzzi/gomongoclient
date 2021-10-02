@@ -1,4 +1,4 @@
-module github.com/laercioamatuzzi/go-ez-mongo
+module github.com/laercioamatuzzi/gomongoclient
 
 go 1.16
 

@@ -7,7 +7,7 @@
 - More examples
 - TTL index
 - Create indexes
-
+- Connection pool
 
 ### Usage example
 
