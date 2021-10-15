@@ -249,7 +249,7 @@ func (m *MongoDB) UpsertMany(collection string, query interface{}, filter interf
 }
 
 // InsertMany values to the given collection
-func (m *MongoDB) InsertMany(collection string, query []interface{}, bypassValidation bool) error {
+func (m *MongoDB) InsertMany(collection string, query []interface{}, ordered bool) error {
 
 	if err := m.Ping(true); err != nil {
 		return err
@@ -257,7 +257,7 @@ func (m *MongoDB) InsertMany(collection string, query []interface{}, bypassValid
 
 	col := m.client.Database(m.Database).Collection(collection)
 	opts := options.InsertManyOptions{}
-	opts.SetBypassDocumentValidation(bypassValidation)
+	opts.SetOrdered(ordered)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
