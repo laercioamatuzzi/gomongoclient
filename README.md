@@ -2,6 +2,10 @@
 
 - gomongoclient implements and simplify the mongodb-driver usage
 
+### Under Construction
+
+- Feel free to submit issues, requests and ideas.
+
 ### Todos
 
 - More examples

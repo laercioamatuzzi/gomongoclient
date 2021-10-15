@@ -249,19 +249,23 @@ func (m *MongoDB) UpsertMany(collection string, query interface{}, filter interf
 }
 
 // InsertMany values to the given collection
-func (m *MongoDB) InsertMany(collection string, query []interface{}) {
+func (m *MongoDB) InsertMany(collection string, query []interface{}, bypassValidation bool) error {
 
 	if err := m.Ping(true); err != nil {
-		return
+		return err
 	}
 
 	col := m.client.Database(m.Database).Collection(collection)
+	opts := options.InsertManyOptions{}
+	opts.SetBypassDocumentValidation(bypassValidation)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	_, err := col.InsertMany(ctx, query)
+	_, err := col.InsertMany(ctx, query, &opts)
 
 	if err != nil {
 		fmt.Printf("[MONGO]: Insert failed. [Err Detail: %s]", err)
 	}
+
+	return err
 }
